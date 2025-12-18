@@ -15,6 +15,19 @@ times, the simulation stops. If not specified, the simulation stops when a
 philosopher dies.
 */
 
+bool fork_init(t_data *d)
+{
+	int	i;
+
+	i = -1;
+	while ( ++i < d->philo_count)
+	{
+		
+	}
+	return (true);
+}
+}
+
 bool	philo_init(t_data *d)
 {
 	int	i;

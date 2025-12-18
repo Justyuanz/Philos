@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-
+#include <pthread.h>
 
 
 typedef struct s_data t_data;
@@ -19,12 +19,14 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int	philo_count;
-	int	hunger_endurance;
-	int	eat_duration;
-	int	sleep_duration;
-	int	meal_limit;
-	t_philo	*philo;
+	t_philo			*philo;
+	pthread_mutex_t	*fork;
+	int				philo_count;
+	int				hunger_endurance;
+	int				eat_duration;
+	int				sleep_duration;
+	int				meal_limit;
+
 }	t_data;
 
 
