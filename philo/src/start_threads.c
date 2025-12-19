@@ -21,10 +21,9 @@ static void *thread_start(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	locked_printf(philo, "is starting job");
 	take_forks(philo);
-	//is_thinking(philo);
-	//sleep
+	locked_printf(philo, "is sleeping 💤");
+	locked_printf(philo, "is thinking 💭");
 	return (NULL);
 }
 

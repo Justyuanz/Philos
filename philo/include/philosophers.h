@@ -7,6 +7,8 @@
 #include <limits.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <sys/time.h>
+
 
 typedef struct s_data t_data;
 
@@ -43,10 +45,11 @@ bool 	data_init(t_data *d);
 bool 	create_thread(t_data *d);
 
 //routine.c
-bool	take_forks(t_philo *philo);
+void	take_forks(t_philo *philo);
 
 //utils.c
 void 	locked_printf(t_philo *philo, char *msg);
+void	get_time_converter(void);
 
 //cleanup.c
 bool cleanup_free(t_data *d, char *msg);

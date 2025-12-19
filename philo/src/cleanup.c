@@ -12,6 +12,11 @@ bool cleanup_free(t_data *d, char *msg)
 		free(d->forks);
 		d->forks = NULL;
 	}
+	if (d->print_lock)
+	{
+		free (d->print_lock);
+		d->print_lock = NULL;
+	}
 	if (msg)
 		printf("%s", msg);
 	return (false);
