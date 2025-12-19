@@ -1,55 +1,46 @@
 #include "philosophers.h"
 
-/*
-◦ number_of_philosophers: The number of philosophers and also the number
-of forks.
-◦ time_to_die (in milliseconds): If a philosopher has not started eating within
-time_to_die milliseconds since the start of their last meal or the start of the
-simulation, they die.
-◦ time_to_eat (in milliseconds): The time it takes for a philosopher to eat.
-During that time, they will need to hold two forks.
-◦ time_to_sleep (in milliseconds): The time a philosopher will spend sleeping.
-◦ number_of_times_each_philosopher_must_eat (optional argument): If all
-philosophers have eaten at least number_of_times_each_philosopher_must_eat
-times, the simulation stops. If not specified, the simulation stops when a
-philosopher dies.
-*/
-
-bool fork_init(t_data *d)
+static bool	error_msg_parsing(char *msg)
 {
-	int	i;
-
-	i = -1;
-	while ( ++i < d->philo_count)
-	{
-		
-	}
-	return (true);
-}
+	printf("%s\n", msg);
+	return (false);
 }
 
-bool	philo_init(t_data *d)
+static bool number_only(const char *str)
 {
-	int	i;
+	int i;
 
-	i = -1;
-	while ( ++i < d->philo_count)
+	i = 0;
+	if (str[i] == '\0')
+		return (false);
+	while (str[i])
 	{
-		d->philo[i].philo_id = i + 1;
-		fprintf(stderr, "philo id: %d\n", d->philo[i].philo_id);
+		if ((str[i] >= '0' && str[i] <= '9'))
+			i++;
+		else
+			return (false);
 	}
 	return (true);
 }
 
-
-bool	data_init(t_data *d)
+static int	parse_number(const char *str, int *error)
 {
-	d->philo = malloc (d->philo_count * sizeof (t_philo));
-	if (!d->philo)
-		return (error_msg("malloc fail"));
-	d-//fork?
-	philo_init(d);
-	return (true);
+	int		i;
+	int		start;
+	long	result;
+
+	i = 0;
+	result = 0;
+	if (!number_only(str))
+		return (*error = 1);
+	start = i;
+	while (str[i] >= '0' && str[i] <= '9')
+		result = result * 10 + str[i++] - '0';
+	if (i - start > 10)
+		return (*error = 1);
+	if ((result > INT_MAX))
+		return (*error = 1);
+	return (result);
 }
 
 bool	input_validation(int argc, char **argv, t_data *d)
@@ -58,7 +49,7 @@ bool	input_validation(int argc, char **argv, t_data *d)
 
 	error_flag = 0;
 	if (!(argc == 5 || argc == 6))
-	return(error_msg("usage: ./philo n_philos t_die t_eat t_sleep [must_eat]"));
+	return(error_msg_parsing("usage: ./philo n_philos t_die t_eat t_sleep [must_eat]"));
 	d->philo_count = parse_number(argv[1], &error_flag);
 	d->hunger_endurance = parse_number(argv[2], &error_flag);
 	d->eat_duration = parse_number(argv[3], &error_flag);
@@ -68,7 +59,7 @@ bool	input_validation(int argc, char **argv, t_data *d)
 	else
 		d->meal_limit = -1;
 	if (error_flag)
-		return (error_msg("invalid input, only digits allowed"));
+		return (error_msg_parsing("invalid input, only digits allowed"));
 	return (true);
 }
 

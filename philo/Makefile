@@ -17,7 +17,11 @@ OBJDIR = obj
 SRCS = $(addprefix $(SRCDIR)/,\
 		main.c \
 		parsing.c \
+		init.c \
+		start_threads.c \
+		routine.c \
 		utils.c \
+		cleanup.c \
 )
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 DEPS = $(OBJS:.o=.d)
@@ -30,7 +34,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 		@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_A) $(C_VEC_A)
-		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+		@$(CC) $(CFLAGS) $(OBJS) -pthread -o $(NAME)
 		@echo "$(GREEN) Compiled!$(DEF_COLOR)"
 
 valgrind:
