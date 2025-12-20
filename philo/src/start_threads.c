@@ -30,8 +30,8 @@ static void *thread_start(void *arg)
 bool create_thread(t_data *d)
 {
 	int	i;
-
 	i = -1;
+	d->start_simulation = get_time_converter();
 	while (++i < d->philo_count)
 	{
 		if (pthread_create(&d->philo[i].thread_id, NULL, &thread_start, &d->philo[i]) != 0)

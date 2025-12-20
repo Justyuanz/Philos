@@ -1,0 +1,3 @@
+obj/parsing.o: src/parsing.c include/philosophers.h
+
+include/philosophers.h:

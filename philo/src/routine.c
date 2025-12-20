@@ -27,7 +27,6 @@ void	take_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right_forks);
 		locked_printf(philo, "has taken the right fork 🍴");
 		locked_printf(philo, "is eating 🍝");
-		usleep(philo->data->eat_duration * 1000);
 		pthread_mutex_unlock(philo->right_forks);
 		pthread_mutex_unlock(philo->left_forks);
 	}
@@ -38,7 +37,6 @@ void	take_forks(t_philo *philo)
 		pthread_mutex_lock(philo->left_forks);
 		locked_printf(philo, "has taken the left fork 🍴");
 		locked_printf(philo, "is eating 🍝");
-		usleep(philo->data->eat_duration * 1000);
 		pthread_mutex_unlock(philo->left_forks);
 		pthread_mutex_unlock(philo->right_forks);
 	}

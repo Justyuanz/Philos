@@ -26,6 +26,7 @@ typedef struct s_data
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t *print_lock;
+	long 			start_simulation;
 	int				philo_count;
 	int				hunger_endurance;
 	int				eat_duration;
@@ -49,7 +50,7 @@ void	take_forks(t_philo *philo);
 
 //utils.c
 void 	locked_printf(t_philo *philo, char *msg);
-void	get_time_converter(void);
+long	get_time_converter(void);
 
 //cleanup.c
 bool cleanup_free(t_data *d, char *msg);
