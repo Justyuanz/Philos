@@ -20,6 +20,7 @@ SRCS = $(addprefix $(SRCDIR)/,\
 		init.c \
 		start_threads.c \
 		routine.c \
+		monitor.c \
 		utils.c \
 		cleanup.c \
 )

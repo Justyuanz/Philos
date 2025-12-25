@@ -17,6 +17,11 @@ bool cleanup_free(t_data *d, char *msg)
 		free (d->print_lock);
 		d->print_lock = NULL;
 	}
+	if (d->end_simulation_lock)
+	{
+		free (d->end_simulation_lock);
+		d->end_simulation_lock = NULL;
+	}
 	if (msg)
 		printf("%s", msg);
 	return (false);
@@ -32,6 +37,7 @@ bool  cleanup_all(t_data *d, char *msg)
 		pthread_mutex_destroy(&d->forks[i]);
 	}
 	pthread_mutex_destroy(d->print_lock);
+	pthread_mutex_destroy(d->end_simulation_lock);
 	cleanup_free(d, msg);
 
 	return (false);
