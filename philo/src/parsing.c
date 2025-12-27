@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/27 19:57:13 by jinzhang          #+#    #+#             */
+/*   Updated: 2025/12/27 19:57:14 by jinzhang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 static bool	error_msg_parsing(char *msg)
@@ -6,9 +18,9 @@ static bool	error_msg_parsing(char *msg)
 	return (false);
 }
 
-static bool number_only(const char *str)
+static bool	number_only(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '\0')
@@ -45,15 +57,18 @@ static int	parse_number(const char *str, int *error)
 
 bool	input_validation(int argc, char **argv, t_data *d)
 {
-	int		error_flag;
+	int	error_flag;
 
 	error_flag = 0;
 	if (!(argc == 5 || argc == 6))
-	return(error_msg_parsing("usage: ./philo n_philos t_die t_eat t_sleep [must_eat]"));
+		return (error_msg_parsing("usage: ./philo n_philos t_die t_eat t_sleep [must_eat]"));
 	d->philo_count = parse_number(argv[1], &error_flag);
 	d->hunger_endurance = parse_number(argv[2], &error_flag);
 	d->eat_duration = parse_number(argv[3], &error_flag);
 	d->sleep_duration = parse_number(argv[4], &error_flag);
+	if (d->philo_count <= 0 || d->hunger_endurance <= 0 || d->eat_duration <= 0
+		|| d->sleep_duration <= 0)
+		return (error_msg_parsing("invalid input, only > 0 allowed"));
 	if (argv[5])
 		d->meal_limit = parse_number(argv[5], &error_flag);
 	else
@@ -62,4 +77,3 @@ bool	input_validation(int argc, char **argv, t_data *d)
 		return (error_msg_parsing("invalid input, only digits allowed"));
 	return (true);
 }
-

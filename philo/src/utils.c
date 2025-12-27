@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/27 19:58:04 by jinzhang          #+#    #+#             */
+/*   Updated: 2025/12/27 19:58:06 by jinzhang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 /*
@@ -17,25 +29,27 @@ microseconds → seconds	us / 1000000
 1000L     // long
 1000LL    // long long
 Without L suffix, the multiplication can happen in int
-with L, Now the compiler sees: long * long, result = long, no overflow (if value fits in long)
+with L, Now the compiler sees: long * long, result = long,
+	no overflow (if value fits in long)
 */
 long	get_now_time_converter(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
-	gettimeofday(&tv, NULL); //-1 for failure
-	return(tv.tv_sec * 1000L + tv.tv_usec / 1000L); //overflow?
+	gettimeofday(&tv, NULL);                         //-1 for failure
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L); // overflow?
 }
 
-void locked_printf(t_philo *philo, char *msg)
+void	locked_printf(t_philo *philo, char *msg)
 {
-	long now;
-	long timelap;
+	long	now;
+	long	timelap;
 
+	if (simulation_over(philo->data))
+		return ;
 	pthread_mutex_lock(philo->data->print_lock);
-	now = get_now_time_converter(); //might return -1
+	now = get_now_time_converter(); // might return -1
 	timelap = now - philo->data->start_simulation;
 	printf("%ld %ld %s\n", timelap, philo->philo_id, msg);
 	pthread_mutex_unlock(philo->data->print_lock);
 }
-
