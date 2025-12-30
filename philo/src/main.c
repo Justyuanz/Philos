@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:03 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 19:57:04 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 16:12:29 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(int argc, char **argv)
 	if (!data_init(&d))
 		return (cleanup_all(&d, "data init error"));
 	if (!create_thread(&d))
+		return (cleanup_all(&d, "thread error\n"));
+	main_monitor(&d);
+	if (!join_threads(&d))
 		return (cleanup_all(&d, "thread error\n"));
 	cleanup_all(&d, NULL);
 }

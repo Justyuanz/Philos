@@ -6,38 +6,18 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:58:04 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 19:58:06 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 17:48:33 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/*
-Obtains the current time, expressed as seconds and microseconds
-since 00:00:00 Coordinated Universal Time (UTC), January 1, 1970,
-and stores it in the timeval structure
-seconds → milliseconds	sec * 1000
-seconds → microseconds	sec * 1000000
-milliseconds → seconds	ms / 1000
-milliseconds → microseconds	ms * 1000
-microseconds → milliseconds	us / 1000
-microseconds → seconds	us / 1000000
-*/
-
-/*
-1000      // int
-1000L     // long
-1000LL    // long long
-Without L suffix, the multiplication can happen in int
-with L, Now the compiler sees: long * long, result = long,
-	no overflow (if value fits in long)
-*/
 long	get_now_time_converter(void)
 {
 	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);                         //-1 for failure
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L); // overflow?
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
 
 void	locked_printf(t_philo *philo, char *msg)
@@ -45,10 +25,15 @@ void	locked_printf(t_philo *philo, char *msg)
 	long	now;
 	long	timelap;
 
-	if (simulation_over(philo->data))
-		return ;
+    pthread_mutex_lock(philo->data->end_simulation_lock);
+    if (philo->data->end_simulation)
+    {
+        pthread_mutex_unlock(philo->data->end_simulation_lock);
+        return;
+    }
+    pthread_mutex_unlock(philo->data->end_simulation_lock);
 	pthread_mutex_lock(philo->data->print_lock);
-	now = get_now_time_converter(); // might return -1
+	now = get_now_time_converter();
 	timelap = now - philo->data->start_simulation;
 	printf("%ld %ld %s\n", timelap, philo->philo_id, msg);
 	pthread_mutex_unlock(philo->data->print_lock);

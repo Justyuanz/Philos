@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:56:29 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 20:55:17 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 17:52:11 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ bool					data_init(t_data *d);
 
 // start_threads.c
 bool					create_thread(t_data *d);
+bool					join_threads(t_data *d);
 
 // routine.c
-void					take_forks(t_philo *philo);
-void					are_eating(t_philo *philo);
+bool					take_forks(t_philo *philo);
+bool					are_eating(t_philo *philo);
 void					put_down_forks(t_philo *philo);
 void					precise_usleep(t_philo *philo, long sleep_duration);
 bool					is_dead(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:47 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/30 15:26:22 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 18:00:46 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,21 @@ static bool	all_meals_done(t_data *d)
 	return (all_ate);
 }
 
+void	death_print(t_data *d, long i)
+{
+	d->end_simulation = 1;
+	pthread_mutex_lock(d->print_lock);
+	printf("%ld %ld died\n", get_now_time_converter() - d->start_simulation,
+		d->philo[i].philo_id);
+	pthread_mutex_unlock(d->print_lock);
+}
+
 static void	check_if_dead(t_data *d)
 {
 	long	i;
 	long	previous_meal;
 	int		meal;
-	long 	now;
+	long	now;
 
 	i = -1;
 	while (++i < d->philo_count)
@@ -49,21 +58,14 @@ static void	check_if_dead(t_data *d)
 		previous_meal = d->philo[i].previous_meal;
 		meal = d->philo[i].meal_eaten;
 		pthread_mutex_unlock(d->philo[i].meal_lock);
-		// If this philosopher already finished required meals, ignore it forever
-        if (d->meal_limit > 0 && meal >= d->meal_limit)
-            continue;
+		if (d->meal_limit > 0 && meal >= d->meal_limit)
+			continue ;
 		now = get_now_time_converter();
 		if (now - previous_meal >= d->hunger_endurance)
 		{
 			pthread_mutex_lock(d->end_simulation_lock);
 			if (!d->end_simulation)
-			{
-				d->end_simulation = 1;
-				pthread_mutex_lock(d->print_lock);
-				printf("%ld %ld died\n", get_now_time_converter()
-					- d->start_simulation, d->philo[i].philo_id);
-				pthread_mutex_unlock(d->print_lock);
-			}
+				death_print(d, i);
 			pthread_mutex_unlock(d->end_simulation_lock);
 			return ;
 		}
@@ -72,7 +74,7 @@ static void	check_if_dead(t_data *d)
 
 void	main_monitor(t_data *d)
 {
-	bool meal_limit_done;
+	bool	meal_limit_done;
 
 	meal_limit_done = false;
 	while (1)

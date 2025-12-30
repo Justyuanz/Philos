@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:13 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 19:57:14 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:51:56 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	input_validation(int argc, char **argv, t_data *d)
 
 	error_flag = 0;
 	if (!(argc == 5 || argc == 6))
-		return (error_msg_parsing("usage: ./philo n_philos t_die t_eat t_sleep [must_eat]"));
+		return (error_msg_parsing("usage: ./philo n_phi t_d t_e t_s [m_eat]"));
 	d->philo_count = parse_number(argv[1], &error_flag);
 	d->hunger_endurance = parse_number(argv[2], &error_flag);
 	d->eat_duration = parse_number(argv[3], &error_flag);

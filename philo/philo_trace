@@ -328,3 +328,62 @@
 -- Death Tests --
 
 ---- TRACE ENDS ----
+
+============================================================
+
+----- TRACE BEGINS -----
+
+-- Basic Error Tests --
+
+-- One Philosopher Tests --
+
+-- No Death Tests --
+
+-- Death Tests --
+
+---- TRACE ENDS ----
+
+============================================================
+
+----- TRACE BEGINS -----
+
+-- Basic Error Tests --
+
+-- One Philosopher Tests --
+
+-- No Death Tests --
+
+199 600 200 100 10: Philosopher died
+	
+
+-- Death Tests --
+
+---- TRACE ENDS ----
+
+============================================================
+
+----- TRACE BEGINS -----
+
+-- Basic Error Tests --
+
+-- One Philosopher Tests --
+
+-- No Death Tests --
+
+-- Death Tests --
+
+---- TRACE ENDS ----
+
+============================================================
+
+----- TRACE BEGINS -----
+
+-- Basic Error Tests --
+
+-- One Philosopher Tests --
+
+-- No Death Tests --
+
+-- Death Tests --
+
+---- TRACE ENDS ----

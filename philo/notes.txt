@@ -1,0 +1,59 @@
+/*
+Obtains the current time, expressed as seconds and microseconds
+since 00:00:00 Coordinated Universal Time (UTC), January 1, 1970,
+and stores it in the timeval structure
+seconds → milliseconds	sec * 1000
+seconds → microseconds	sec * 1000000
+milliseconds → seconds	ms / 1000
+milliseconds → microseconds	ms * 1000
+microseconds → milliseconds	us / 1000
+microseconds → seconds	us / 1000000
+*/
+
+/*
+1000      // int
+1000L     // long
+1000LL    // long long
+Without L suffix, the multiplication can happen in int
+with L, Now the compiler sees: long * long, result = long,
+	no overflow (if value fits in long)
+*/
+
+
+/*
+Any shared state must be read and written under a mutex.
+
+without alternating:
+Philosopher 1
+lock(left_fork);   // fork 0
+lock(right_fork);  // fork 1
+
+Philosopher 2
+lock(left_fork);   // fork 1
+lock(right_fork);  // fork 0
+
+t=0: Philo 1 locks fork 0
+t=1: Philo 2 locks fork 1
+t=2: Philo 1 waits for fork 1
+t=3: Philo 2 waits for fork 0
+*/
+
+// home end   , shift home shift end, ctrl home ctrl end,
+// option u or down arrow
+// 'ctrl + shift + a' for command block(highlight + key=place comment inside block)
+
+
+/*
+Think of pthread_create as: Start running this function in parallel,
+and give it one piece of data to work with.”
+*/
+/*
+pthread_create(
+	where_to_store_thread_id,
+	thread_options_or_NULL,
+	function_the_thread_will_run,
+	data_given_to_that_function
+);
+The job order is random because threads run concurrently
+and the OS scheduler decides when each one runs.
+*/
