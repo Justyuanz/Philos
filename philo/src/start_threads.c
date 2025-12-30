@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:28 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 21:12:56 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:31:07 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	create_thread(t_data *d)
 	int	i;
 
 	i = -1;
+
 	d->start_simulation = get_now_time_converter();
 	while (++i < d->philo_count)
 	{

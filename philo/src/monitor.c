@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:47 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/27 21:05:40 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:26:22 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	check_if_dead(t_data *d)
 	long	i;
 	long	previous_meal;
 	int		meal;
+	long 	now;
 
 	i = -1;
 	while (++i < d->philo_count)
@@ -51,7 +52,8 @@ static void	check_if_dead(t_data *d)
 		// If this philosopher already finished required meals, ignore it forever
         if (d->meal_limit > 0 && meal >= d->meal_limit)
             continue;
-		if (get_now_time_converter() - previous_meal >= d->hunger_endurance)
+		now = get_now_time_converter();
+		if (now - previous_meal >= d->hunger_endurance)
 		{
 			pthread_mutex_lock(d->end_simulation_lock);
 			if (!d->end_simulation)
@@ -75,6 +77,7 @@ void	main_monitor(t_data *d)
 	meal_limit_done = false;
 	while (1)
 	{
+		usleep(1000);
 		if (d->meal_limit > 0)
 			meal_limit_done = all_meals_done(d);
 		if (simulation_over(d))
