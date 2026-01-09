@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:57:55 by jinzhang          #+#    #+#             */
-/*   Updated: 2025/12/30 17:54:04 by jinzhang         ###   ########.fr       */
+/*   Updated: 2025/12/30 18:32:29 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	precise_usleep(t_philo *philo, long sleep_duration)
 bool	are_eating(t_philo *philo)
 {
 	if (simulation_over(philo->data))
-    	return (false);
+		return (false);
 	pthread_mutex_lock(philo->meal_lock);
 	philo->previous_meal = get_now_time_converter();
 	philo->meal_eaten += 1;
@@ -66,7 +66,7 @@ void	put_down_forks(t_philo *philo)
 bool	take_forks(t_philo *philo)
 {
 	if (simulation_over(philo->data))
-    	return (false);
+		return (false);
 	usleep(1000);
 	if (philo->philo_id % 2 == 0)
 	{
